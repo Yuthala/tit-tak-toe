@@ -1,4 +1,4 @@
-export function TringleIcon() {
+export function TriangleIcon() {
 	return (
 	  <svg
 		width="12"
