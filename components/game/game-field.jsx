@@ -8,11 +8,11 @@ import { GameSymbol } from './game-symbol';
 import { useGameState } from './use-game-state';
 
 
-export function GameField({className}) {
+export function GameField({className, playersCount}) {
 	const {	cells, 
 		currentMove, 
 		nextMove, 
-		handleCellClick} = useGameState();
+		handleCellClick} = useGameState(playersCount);
 
 	//переменная для GameMoveInfo (кнопки)
 	const actions = 
