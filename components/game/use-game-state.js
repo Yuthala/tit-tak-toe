@@ -1,15 +1,6 @@
-import { MOVE_ORDER, GAME_SYMBOLS } from './constants';
+import { GAME_SYMBOLS } from './constants';
 import { useState } from 'react';
-
-//функция расчета состояния следующего хода на основании currentMove
-function getNextMove(currentMove, playersCount) {
-
-	const slicedMoveOrder = MOVE_ORDER.slice(0, playersCount);
-
-	const nextMoveIndex = slicedMoveOrder.indexOf(currentMove) + 1
-	//если slicedMoveOrder[nextMoveIndex] > 3, надо установить индекс 0 (ходит опять "крестик")
-	return slicedMoveOrder[nextMoveIndex] ?? slicedMoveOrder[0];
-}
+import { computeWinner, getNextMove } from './model';
 
 //кастомный хук
 export function useGameState(playersCount) {
@@ -21,6 +12,7 @@ export function useGameState(playersCount) {
 		currentMove: GAME_SYMBOLS.CROSS
 	}));
 
+	const winnerSequence = computeWinner(cells);
 	//состояние какой следующий ход. Не заводим копию состояния currentMove, а расчитываем прямо при рендере.
 	const nextMove = getNextMove(currentMove, playersCount);
 
@@ -45,6 +37,7 @@ export function useGameState(playersCount) {
 		cells, 
 		currentMove, 
 		nextMove, 
-		handleCellClick
+		handleCellClick, 
+		winnerSequence
 	}
 }
