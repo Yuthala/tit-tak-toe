@@ -4,7 +4,7 @@ import {useState} from 'react';
 
 export default function HomePage() {
 
-	const [playersCount] = useState(2);
+	const [playersCount] = useState(2); //указать кол-во игроков 2 или 4 в начальном состоянии
 	//хук, общий для game-info и game-field, венесен на уровень выше
 	const {	cells, 
 		currentMove, 

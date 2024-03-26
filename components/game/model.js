@@ -11,6 +11,7 @@ export function getNextMove(currentMove, playersCount) {
 }
 
 //функция определения победителя
+//sequenceSize - кол-во клеточек подряд для победы; fieldSize = размер игрового поля
 export function computeWinner(cells, sequenceSize = 5, fieldSize = 5) {
 
 	const gap = Math.floor(sequenceSize / 2);
