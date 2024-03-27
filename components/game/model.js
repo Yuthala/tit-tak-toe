@@ -1,9 +1,9 @@
 import { MOVE_ORDER } from './constants';
 
 //функция расчета состояния следующего хода на основании currentMove
-export function getNextMove(currentMove, playersCount) {
+export function getNextMove(currentMove, playersCount, playersTimeOver) {
 
-	const slicedMoveOrder = MOVE_ORDER.slice(0, playersCount);
+	const slicedMoveOrder = MOVE_ORDER.slice(0, playersCount).filter(symbol => !playersTimeOver.includes(symbol));
 
 	const nextMoveIndex = slicedMoveOrder.indexOf(currentMove) + 1
 	//если slicedMoveOrder[nextMoveIndex] > 3, надо установить индекс 0 (ходит опять "крестик")
@@ -40,6 +40,13 @@ export function computeWinner(cells, sequenceSize = 5, fieldSize = 5) {
 			res[2].push(-fieldSize * (j - gap) + (j - gap) + i);
 			res[3].push(fieldSize * (j - gap) + i);
 		}
+        const x = i % fieldSize;
+        if(x < gap || x >= fieldSize - gap) {
+            res.shift();
+            res.shift();
+            res.shift();
+        }
+
 		return res;
 	}
 

@@ -4,13 +4,14 @@ import {useState} from 'react';
 
 export default function HomePage() {
 
-	const [playersCount] = useState(2); //указать кол-во игроков 2 или 4 в начальном состоянии
+	const [playersCount] = useState(4); //указать кол-во игроков 2 или 4 в начальном состоянии
 	//хук, общий для game-info и game-field, венесен на уровень выше
 	const {	cells, 
 		currentMove, 
 		nextMove, 
 		handleCellClick,
-		winnerSequence} = useGameState(playersCount);
+		winnerSequence,
+		handlePlayerTimeOver} = useGameState(playersCount);
 
   return (
 	<div className="bg-slate-50 min-h-screen">
@@ -21,6 +22,8 @@ export default function HomePage() {
 				playersCount={playersCount} 
 				className="mt-4" 
 				currentMove={currentMove}
+				isWiiner={!!winnerSequence}
+				onPlayerTimeOver={handlePlayerTimeOver}
 			/>
 			<GameField 
 				className="mt-6" 

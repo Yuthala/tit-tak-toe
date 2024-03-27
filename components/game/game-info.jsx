@@ -40,7 +40,7 @@ const players = [
 	}
 ];
 
-export function GameInfo({className, playersCount, currentMove}) {
+export function GameInfo({className, playersCount, currentMove, isWinner, onPlayerTimeOver}) {
 	return(
 		<div className={clsx(className, "bg-white rounded-2xl shadow-md px-8 py-4 justify-between grid grid-cols-2 gap-12")}>
 
@@ -49,7 +49,8 @@ export function GameInfo({className, playersCount, currentMove}) {
 					key={player.id}
 					playerInfo={player}
 					isRight={index % 2 === 1}
-					isTimerRunning={currentMove === player.symbol}
+					onTimeOver={() => onPlayerTimeOver(player.symbol)}
+					isTimerRunning={currentMove === player.symbol && !isWinner}
 				/>
 			))}
 
@@ -58,7 +59,7 @@ export function GameInfo({className, playersCount, currentMove}) {
 	);
 }
 
-function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
+function PlayerInfo({ playerInfo, isRight, isTimerRunning, onTimeOver }) {
 	//состояние таймера
 	const [seconds, setSeconds] = useState(60);
 	//строковое представление минут
@@ -83,6 +84,12 @@ function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
 			}
 		}
 	}, [isTimerRunning])
+
+	useEffect(() => {
+		if(seconds === 0) {
+			onTimeOver();
+		}
+	}, [seconds]);
 
 	//функция изменения цвета таймера
 	const getTimerColor = () => {
