@@ -1,4 +1,5 @@
 import { GameTitle, GameInfo, GameField, useGameState } from '../components/game';
+import { GameSymbol } from '../components/game/game-symbol';
 import {Header} from '../components/header';
 import {useState} from 'react';
 
@@ -6,12 +7,15 @@ export default function HomePage() {
 
 	const [playersCount] = useState(4); //указать кол-во игроков 2 или 4 в начальном состоянии
 	//хук, общий для game-info и game-field, венесен на уровень выше
-	const {	cells, 
-		currentMove, 
-		nextMove, 
+	const {
+		cells,
+		currentMove,
 		handleCellClick,
+		nextMove,
 		winnerSequence,
-		handlePlayerTimeOver} = useGameState(playersCount);
+		handlePlayerTimeOver,
+		winnerSymbol,
+	} = useGameState(playersCount);
 
   return (
 	<div className="bg-slate-50 min-h-screen">
@@ -22,9 +26,16 @@ export default function HomePage() {
 				playersCount={playersCount} 
 				className="mt-4" 
 				currentMove={currentMove}
-				isWiiner={!!winnerSequence}
-				onPlayerTimeOver={handlePlayerTimeOver}
+          		isWinner={!!winnerSymbol}
+          		onPlayerTimeOver={handlePlayerTimeOver}
 			/>
+
+			{winnerSymbol && (
+			<div className="my-4">
+				<GameSymbol symbol={winnerSymbol} />
+			</div>
+			)}
+
 			<GameField 
 				className="mt-6" 
 				cells={cells} 
@@ -32,6 +43,7 @@ export default function HomePage() {
 				nextMove={nextMove}
 				handleCellClick={handleCellClick}
 				winnerSequence={winnerSequence}
+				winnerSymbol={winnerSymbol}
 			/>
 		</main>
 	</div>

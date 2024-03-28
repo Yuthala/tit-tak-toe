@@ -49,8 +49,8 @@ export function GameInfo({className, playersCount, currentMove, isWinner, onPlay
 					key={player.id}
 					playerInfo={player}
 					isRight={index % 2 === 1}
-					onTimeOver={() => onPlayerTimeOver(player.symbol)}
-					isTimerRunning={currentMove === player.symbol && !isWinner}
+          			onTimeOver={() => onPlayerTimeOver(player.symbol)}
+          			isTimerRunning={currentMove === player.symbol && !isWinner}
 				/>
 			))}
 
@@ -85,11 +85,12 @@ function PlayerInfo({ playerInfo, isRight, isTimerRunning, onTimeOver }) {
 		}
 	}, [isTimerRunning])
 
-	useEffect(() => {
-		if(seconds === 0) {
-			onTimeOver();
-		}
-	}, [seconds]);
+  useEffect(() => {
+    if (seconds === 0) {
+      onTimeOver();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seconds]);
 
 	//функция изменения цвета таймера
 	const getTimerColor = () => {

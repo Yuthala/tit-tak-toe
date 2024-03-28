@@ -3,7 +3,7 @@ import { UiButton } from '../uikit/ui-button';
 import { GameSymbol } from './game-symbol';
 
 
-export function GameField({className, cells, currentMove, nextMove, handleCellClick, winnerSequence}) {
+export function GameField({className, cells, currentMove, nextMove, handleCellClick, winnerSequence, winnerSymbol}) {
 
 	//переменная для GameMoveInfo (кнопки)
 	const actions = 
@@ -20,18 +20,19 @@ export function GameField({className, cells, currentMove, nextMove, handleCellCl
 				nextMove={nextMove}/>
 				
 			<GameGrid>
-				{cells.map((symbol, index) => (
-					<GameCell 
-						key={index} 
-						isWinner={winnerSequence?.includes(index)}
-						disabled={!!winnerSequence}
-						onClick={() => {
-							handleCellClick(index);
-					}}>
-						{symbol && <GameSymbol symbol={symbol} className="w-3 h-3"/>}
-				</GameCell>
-				))}
-			</GameGrid>
+        	{cells.map((symbol, index) => (
+          		<GameCell
+					key={index}
+					isWinner={winnerSequence?.includes(index)}
+					disabled={!!winnerSymbol}
+					onClick={() => {
+					handleCellClick(index);
+					}}
+          		>
+            {symbol && <GameSymbol symbol={symbol} className="w-5 h-5" />}
+          </GameCell>
+        ))}
+      </GameGrid>
 		</GameFieldLayout>
 	);
 }
