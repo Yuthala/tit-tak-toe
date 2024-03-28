@@ -2,6 +2,8 @@ import { GameTitle, GameInfo, GameField, useGameState } from '../components/game
 import { GameSymbol } from '../components/game/game-symbol';
 import {Header} from '../components/header';
 import {useState} from 'react';
+import { UIModal } from '../components/uikit/ui-modal';
+import { UiButton } from '../components/uikit/ui-button';
 
 export default function HomePage() {
 
@@ -35,6 +37,19 @@ export default function HomePage() {
 				<GameSymbol symbol={winnerSymbol} />
 			</div>
 			)}
+
+			<UIModal width="md" isOpen={winnerSymbol} onClose={() => console.log('close')}>
+				<UIModal.Header>Игра завершена</UIModal.Header>
+				<UIModal.Body>
+					<div className="text-sm">
+						Победитель: <span className="text-teal-600">User 1302</span>
+					</div>
+				</UIModal.Body>
+				<UIModal.Footer>
+					<UiButton size="md" variant="outline">Вернуться</UiButton>
+					<UiButton size="md" variant="primary">Играть снова</UiButton>
+				</UIModal.Footer>
+			</UIModal>
 
 			<GameField 
 				className="mt-6" 
