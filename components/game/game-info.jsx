@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import { Profile} from '../profile';
+//import { Profile} from '../profile';
 import {useState, useEffect} from 'react';
 import { CrossIcon } from '../game-new/ui/icons/cross-icon';
-import { GameSymbol } from './game-symbol';
-import { GAME_SYMBOLS } from './constants';
+import { GameSymbol } from '../game-new/ui/game-symbol';
+import { GAME_SYMBOLS } from '../game-new/constants';
 import avatarSrc1 from './images/avatar-1.png';
 import avatarSrc2 from './images/avatar-2.png';
 import avatarSrc3 from './images/avatar-3.png';

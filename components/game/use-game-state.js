@@ -1,4 +1,4 @@
-import { GAME_SYMBOLS } from './constants';
+import { GAME_SYMBOLS } from '../game-new/constants';
 import { useState } from 'react';
 import { computeWinner, getNextMove } from './model';
 

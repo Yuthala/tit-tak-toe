@@ -1,5 +1,5 @@
 import { GameTitle, GameInfo, GameField, useGameState } from '../components/game';
-import { GameSymbol } from '../components/game/game-symbol';
+import { GameSymbol } from '../components/game-new/ui/game-symbol';
 import {Header} from '../components/header';
 import {useState} from 'react';
 import { Game } from './../components/game-new/game';
@@ -50,7 +50,7 @@ export default function HomePage() {
   );
 }
 
-function HomePageLayout({header, children}) {
+export function HomePageLayout({header, children}) {
 	return (
 		<div className="bg-slate-50 min-h-screen">
 			{header}

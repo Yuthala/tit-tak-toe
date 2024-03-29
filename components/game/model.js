@@ -1,4 +1,4 @@
-import { MOVE_ORDER } from './constants';
+import { MOVE_ORDER } from '../game-new/constants';
 
 //функция расчета состояния следующего хода на основании currentMove
 export function getNextMove(currentMove, playersCount, playersTimeOver) {
