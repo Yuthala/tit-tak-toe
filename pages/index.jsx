@@ -20,9 +20,7 @@ export default function HomePage() {
 	} = useGameState(playersCount);
 
   return (
-	<div className="bg-slate-50 min-h-screen">
-		<Header />
-		<main className="pt-6 mx-auto w-max">
+		<HomePageLayout header={<Header />}>
 			<GameTitle playersCount={playersCount}/>
 			<GameInfo 
 				playersCount={playersCount} 
@@ -60,7 +58,15 @@ export default function HomePage() {
 				winnerSequence={winnerSequence}
 				winnerSymbol={winnerSymbol}
 			/>
-		</main>
-	</div>
+		</HomePageLayout>
   );
+}
+
+function HomePageLayout({header, children}) {
+	return (
+		<div className="bg-slate-50 min-h-screen">
+			{header}
+		<main className="pt-6 mx-auto w-max">{children}</main>
+		</div>
+	)
 }
