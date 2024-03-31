@@ -1,4 +1,4 @@
-export function GameLayout({backLink, title, gameInfo, playersList, gameMoveInfo, actions}) {
+export function GameLayout({backLink, title, gameInfo, playersList, gameMoveInfo, actions, gameCells}) {
     return (
         <>
             <div className="pb-10">
@@ -22,6 +22,7 @@ export function GameLayout({backLink, title, gameInfo, playersList, gameMoveInfo
 			        {actions}
 		        </div>
                 <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pl-px pt-px mt-3">
+                    {gameCells}
 		        </div>
             </div>
         </>
