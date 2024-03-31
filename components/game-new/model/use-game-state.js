@@ -1,6 +1,6 @@
-import { GAME_SYMBOLS } from '../game-new/constants';
+import { GAME_SYMBOLS } from '../constants';
 import { useState } from 'react';
-import { computeWinner, getNextMove } from './model';
+import { computeWinner, getNextMove } from '../../game/model';
 
 //кастомный хук
 export function useGameState(playersCount) {
@@ -21,7 +21,7 @@ export function useGameState(playersCount) {
 
 
   	const winnerSymbol =
-   	 nextMove === currentMove ? currentMove : winnerSequence?.[0];
+   	 nextMove === currentMove ? currentMove : cells[winnerSequence?.[0]];
 
 	//обработчик клика по клетке (хода)
 	const handleCellClick = (index) => {

@@ -1,4 +1,5 @@
 import { GameSymbol } from "./game-symbol";
+import clsx from "clsx";
 
 //компонент отрисовки хода игры
 export function GameCell({onClick, isWinner, disabled, symbol}) {

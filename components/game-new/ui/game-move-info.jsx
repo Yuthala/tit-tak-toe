@@ -1,5 +1,7 @@
+import { GameSymbol } from "./game-symbol";
+
 //компонент отображения информации о ходах
-export function GameMoveInfo({actions, currentMove, nextMove}) {
+export function GameMoveInfo({actions, currentMove, nextMove, symbol}) {
 	return (
         <>
             <div className="flex items-center gap-1 text-xl leading-tight">
