@@ -3,7 +3,35 @@ import { useState } from 'react';
 import { computeWinner, getNextMove } from '../../game/model';
 
 //кастомный хук
+const gameStateReducer = (state, action) => {
+  return state;
+};
+
+const initGameState = ({}) => ({
+    cells: new Array(19 * 19).fill(null),
+    currentMove: GAME_SYMBOLS.CROSS,
+    playersTimeOver: [],
+});
+
 export function useGameState(playersCount) {
+  const [gameState, dispatch] = useReducer(gameStateReducer, {}, initGameState);
+  const winnerSequence = computeWinner(cells);
+	//состояние какой следующий ход. Не заводим копию состояния currentMove, а расчитываем прямо при рендере.
+	const nextMove = getNextMove(currentMove, playersCount, playersTimeOver);
+  const winnerSymbol =
+   	 nextMove === currentMove ? currentMove : cells[winnerSequence?.[0]];
+
+return{
+		cells, 
+		currentMove, 
+		nextMove, 
+		handleCellClick, 
+		handlePlayerTimeOver,
+		winnerSequence,
+		winnerSymbol
+	};
+
+ /* 
 //СОСТОЯНИЯ	
 	//объединенное состояние: состояние игрового поля, состояние какой текущий ход 
 	//начальное значение useState - отрисовываем один раз пустое игровое поле (массив клеточек 19х19) при первоначальном рендере компонента
@@ -19,8 +47,7 @@ export function useGameState(playersCount) {
 	//состояние какой следующий ход. Не заводим копию состояния currentMove, а расчитываем прямо при рендере.
 	const nextMove = getNextMove(currentMove, playersCount, playersTimeOver);
 
-
-  	const winnerSymbol =
+  const winnerSymbol =
    	 nextMove === currentMove ? currentMove : cells[winnerSequence?.[0]];
 
 	//обработчик клика по клетке (хода)
@@ -68,4 +95,5 @@ export function useGameState(playersCount) {
 		winnerSequence,
 		winnerSymbol
 	};
+  */
 }
