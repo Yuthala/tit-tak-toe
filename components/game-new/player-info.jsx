@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import { GameSymbol } from "./ui/game-symbol";
 import Image from "next/image";
 
-export function PlayerInfo({isRight, name, rating, avatar, symbol, isTimerRunning, seconds}) {
+export function PlayerInfo({isRight, name, rating, avatar, symbol, timer, timerStartAt}) {
 
+    const seconds = Math.ceil(timer / 1000);
     //строковое представление минут
 	const minutesString = String(Math.floor(seconds / 60)).padStart(2, "0");
 	//строковое представление секунд
@@ -12,7 +13,7 @@ export function PlayerInfo({isRight, name, rating, avatar, symbol, isTimerRunnin
 	const isDanger = seconds < 10;
     //изменение цвета таймера, если осталось < 10 сек
     const getTimerColor = () => {
-        if (isTimerRunning) {
+        if (timerStartAt) {
             return isDanger ? "text-orange-600" : "text-slate-900";
         }
         return "text-slate-200";
