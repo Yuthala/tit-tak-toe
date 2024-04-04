@@ -1,3 +1,4 @@
+//композиционный компонент
 import { GameLayout } from './ui/game-layout';
 import { BackLink } from './ui/back-link';
 import { GameTitle } from './ui/game-title';
@@ -6,15 +7,24 @@ import { PLAYERS } from './constants';
 import { PlayerInfo } from './player-info';
 import { GameMoveInfo} from './ui/game-move-info';
 import { GameCell } from './ui/game-cell';
-import { useGameState } from './model/use-game-state';
+import { GAME_STATE_ACTIONS, useGameState } from './model/use-game-state';
 import { GameOverModal } from './ui/game-over-modal';
 
 const PLAYERS_COUNT = 4;
 
+initGameState
+
 export function Game() {
-
-    const {cells, currentMove, nextMove, handleCellClick, winnerSequence, winnerSymbol} = useGameState(PLAYERS_COUNT);
-
+    const [gameState, dispatch] = useReducer(
+        gameStateReducer, 
+        {playersCount: PLAYERS_COUNT}, 
+        initGameState
+    
+        );
+    const winnerSequence = computeWinner(cells);
+	//состояние какой следующий ход. Не заводим копию состояния currentMove, а расчитываем прямо при рендере.
+	const nextMove = getNextMove(currentMove, playersCount, playersTimeOver);
+    const winnerSymbol = computeWinnerSymbol(gameState, {winnerSequence, nextMove});
     const winnerPlayer = PLAYERS.find(player => player.symbol === winnerSymbol);
 
     return (
@@ -41,7 +51,10 @@ export function Game() {
                 isWinner={winnerSequence?.includes(index)}
                 disabled={!!winnerSymbol}
                 onClick={() => {
-                handleCellClick(index);
+                    dispatch({
+                        type: GAME_STATE_ACTIONS.CELL_CLICK,
+                        index
+                    });
                 }}
                 symbol={cell}
             />)}
