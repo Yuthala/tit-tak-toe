@@ -1,10 +1,14 @@
 import clsx from 'clsx';
 import { GameSymbol } from "./ui/game-symbol";
 import Image from "next/image";
+import {useState} from 'react';
 
 export function PlayerInfo({isRight, name, rating, avatar, symbol, timer, timerStartAt}) {
 
-    const seconds = Math.ceil(timer / 1000);
+    const now = useNow(1000, timerStartAt);
+    const mils = Math.max(now ? timer - (now - timerStartAt): timer, 0);
+
+    const seconds = Math.ceil(mils / 1000);
     //строковое представление минут
 	const minutesString = String(Math.floor(seconds / 60)).padStart(2, "0");
 	//строковое представление секунд
@@ -40,3 +44,21 @@ export function PlayerInfo({isRight, name, rating, avatar, symbol, timer, timerS
 		</div>
     );
 }
+
+// function useNow(interval, enabled) {
+//     const [now, setNow] = useState();
+
+//     useEffect(() => {
+//         if(!enabled) {
+//             setNow(undefined);
+//         }
+
+//         setInterval(() => {
+//             setNow(Date.now());
+//         }, interval);
+
+//         return () => {
+//             clearInterval(int)
+// ;        }
+//     }, [interval, enabled]);
+// }

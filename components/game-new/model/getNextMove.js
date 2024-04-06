@@ -1,9 +1,9 @@
 import { MOVE_ORDER } from '../constants';
 
 //функция расчета состояния следующего хода на основании currentMove
-export function getNextMove(currentMove, playersCount, playersTimeOver) {
+export function getNextMove(currentMove, playersCount, timers) {
   const slicedMoveOrder = MOVE_ORDER.slice(0, playersCount).filter(
-    (symbol) => !playersTimeOver.includes(symbol)
+    (symbol) => !!timers[symbol] > 0
   );
 
 	const nextMoveIndex = slicedMoveOrder.indexOf(currentMove) + 1

@@ -9,6 +9,7 @@ import { GameMoveInfo} from './ui/game-move-info';
 import { GameCell } from './ui/game-cell';
 import { GAME_STATE_ACTIONS, useGameState } from './model/use-game-state';
 import { GameOverModal } from './ui/game-over-modal';
+import { useInterval } from '../lib/timers';
 
 const PLAYERS_COUNT = 4;
 
@@ -20,6 +21,13 @@ export function Game() {
         {playersCount: PLAYERS_COUNT, defaultTimer: 60000, currentMoveStart: Date.now()}, 
         initGameState
     );
+
+    useInterval(1000, gameState.currentMoveStart, () => {
+        dispatch({
+            type: GAME_STATE_ACTIONS.TICK,
+            now: Date.now()
+        });
+    });
 
     const winnerSequence = computeWinner(gameState);
 	//состояние какой следующий ход. Не заводим копию состояния currentMove, а расчитываем прямо при рендере.

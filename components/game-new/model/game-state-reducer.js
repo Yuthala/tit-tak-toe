@@ -1,7 +1,8 @@
 
 
 export const GAME_STATE_ACTIONS = {
-  CELL_CLICK: 'cell-click'
+  CELL_CLICK: 'cell-click',
+  TICK: "tick"
 }
 
 export const initGameState = ({
@@ -30,17 +31,51 @@ export const gameStateReducer = (state, action) => {
 
       return {
         ...state,
+        timers: updateTimers(state, now),
         currentMove: getNextMove(state),
         currentMoveStart: now,
-        cells: state.cells.map((cell, i) =>
-          i === index ? state.currentMove : cell
-        ),
+        cells: updateCell(state, index)
+      };
+    }
+    case GAME_STATE_ACTIONS.TICK: {
+      const{now} = action;
+
+      if(!isTimeOver(state, now)) {
+        return state;
+      }
+
+      return {
+        ...state,
+        timers: updateTimers(state, now),
+        currentMove: getNextMove(state),
+        currentMoveStart: now
       };
     }
     default: {
       return state;
     }
   }
-  return state;
 };
 
+function updateTimers(gameState, now) {
+  
+  const diff = now - gameState.currentMoveStart;
+  const timer = gameState.timers[gameState.currentMove];
+
+  return {
+    ...gameState.timers,
+    [gameState.currentMove]: timer - diff
+  };
+}
+
+function updateCell(gameState, index) {
+    return gameState.cells.map((cell, i) =>
+    i === index ? gameState.currentMove : cell
+  ),
+}
+
+function isTimeOver(gameState, now) {
+  const timer = updateTimers(gameState, now)[gameState.currentMove];
+
+  return timer <= 0;
+}

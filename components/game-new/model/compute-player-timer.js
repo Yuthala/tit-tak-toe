@@ -1,7 +1,7 @@
 export function computePlayerTimer() {
     return {
         timer: gameState.timers[playerSymbol],
-        timerStartAt: player.symbol === gameState.currentMove 
+        timerStartAt: playerSymbol === gameState.currentMove 
             ? gameState.currentMoveStart 
             : undefined,
     };
